@@ -8,9 +8,6 @@ import {
 import { readFile } from "./lib/uploadTable";
 import { generateSampleCSV, updateThemeIcon } from "./lib/utils";
 
-import jsonFile from "./Untitled-1.json";
-const displayJsonButton = document.getElementById("displayJsonButton");
-
 document.addEventListener("DOMContentLoaded", () => {
   if (
     window &&
@@ -70,8 +67,3 @@ document
         break;
     }
   });
-
-displayJsonButton?.addEventListener("click", () => {
-  const jsonFileParsed = JSON.parse(JSON.stringify(jsonFile));
-  console.log("jsonFileParsed", jsonFileParsed);
-});
