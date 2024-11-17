@@ -1,0 +1,12 @@
+body.dark-theme {
+  --ink: #f0f0f0;
+  --paper: #2c2c2c;
+  --header-bg-color: #757575;
+  --border: #666666;
+  --table-bg-color: #444444;
+  --thead-bg-color: #555555;
+  --tr-even-bg-color: #333333;
+  --tr-hover-bg-color: #555555;
+  --drop-area-color: #6b6b6b;
+  --drop-area-hover-color: #d3d3d3;
+}

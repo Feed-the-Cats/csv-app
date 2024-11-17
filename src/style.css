@@ -1,0 +1,169 @@
+@import "css/light-theme.css";
+@import "css/dark-theme.css";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --primary: #0093c0;
+  --white: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  background-color: var(--paper);
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  color: inherit;
+  background-color: var(--header-bg-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: var(--table-bg-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--border);
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+thead {
+  background-color: var(--thead-bg-color);
+  color: var(--white);
+}
+
+thead th {
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: var(--tr-even-bg-color);
+}
+
+tr:has(td):hover {
+  background-color: var(--tr-hover-bg-color);
+}
+
+#dropArea {
+  border: 2px dashed var(--drop-area-color);
+  border-radius: 20px;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 20px;
+  color: var(--drop-area-color);
+  margin: 20px 0;
+  position: relative;
+}
+
+#dropArea:hover {
+  border-color: var(--drop-area-hover-color);
+  color: var(--drop-area-hover-color);
+}
+
+#fileInput {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+#downloadContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* #downloadFormat {
+  height: 40px;
+  margin-right: 0; 
+  padding: 10px;
+  border-radius: 10px 0 0 10px;
+}
+ */
+
+.form-container label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form-container {
+  width: 300px;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#downloadFormat {
+  height: 40px; /* même hauteur que le bouton */
+  padding: 0 30px 0 20px; /* ajout de padding à droite pour la flèche */
+  appearance: none; /* enlever le style par défaut de l'élément select */
+  background: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')
+    no-repeat right 10px center;
+  background-color: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 10px 0 0 10px;
+}
+#downloadButton {
+  height: 40px; /* assurez-vous que la hauteur est cohérente */
+  margin-top: 0;
+  padding: 0 20px; /* ajustez le padding pour une meilleure apparence */
+  border-radius: 0 10px 10px 0;
+}

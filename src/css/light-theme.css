@@ -1,0 +1,12 @@
+body {
+  --ink: #333333;
+  --paper: #f0f0f0;
+  --header-bg-color: #f8f8f8;
+  --border: #cccccc;
+  --table-bg-color: var(--white);
+  --thead-bg-color: var(--primary);
+  --tr-even-bg-color: #dfdfdf;
+  --tr-hover-bg-color: #cacaca;
+  --drop-area-color: #a8a8a8;
+  --drop-area-hover-color: #333333;
+}
