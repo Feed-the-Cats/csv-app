@@ -1,4 +1,4 @@
-# csv-app
+# spreadsheets-app
 
 ## Upload and Display Spreadsheets  
 **Download formats:** CSV, JSON, XLS, XLSX  
