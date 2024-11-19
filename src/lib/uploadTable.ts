@@ -1,4 +1,13 @@
 import * as XLSX from "xlsx";
+import { hasQuotedPortion, splitCsvRespectingQuotes } from "./utils";
+
+const mapRow = (row: string[], tr: HTMLTableRowElement): void => {
+  row.forEach((cell) => {
+    const td = document.createElement("td");
+    td.textContent = cell.trim();
+    tr.appendChild(td);
+  });
+};
 
 const displayCSVTable = (
   csvText: string,
@@ -19,16 +28,18 @@ const displayCSVTable = (
       th.textContent = header.trim();
       tableHeaderRow.appendChild(th);
     });
-
     for (let i = 1; i < lines.length; i++) {
-      const row = lines[i].split(",");
-      const tr = document.createElement("tr");
-      row.forEach((cell) => {
-        const td = document.createElement("td");
-        td.textContent = cell.trim();
-        tr.appendChild(td);
-      });
-      TBody.appendChild(tr);
+      if (hasQuotedPortion(lines[i])) {
+        const row = splitCsvRespectingQuotes(lines[i]);
+        const tr = document.createElement("tr");
+        mapRow(row, tr);
+        TBody.appendChild(tr);
+      } else {
+        const row = lines[i].split(",");
+        const tr = document.createElement("tr");
+        mapRow(row, tr);
+        TBody.appendChild(tr);
+      }
     }
   }
 };
@@ -57,6 +68,13 @@ const createFormFromHeaders = (
   });
 };
 
+function escapeCsvValue(value: string): string {
+  if (value.includes(",") || value.includes('"')) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+}
+
 const flattenObject = (
   obj: any,
   parentKey = "",
@@ -66,17 +84,21 @@ const flattenObject = (
     const newKey = parentKey ? `${parentKey}${sep}${key}` : key;
 
     if (Array.isArray(value)) {
-      // Option 1: Concatenate array values
-      acc[newKey] = value.join("|");
-
-      // Option 2: Index array elements as separate keys
-      value.forEach((item, index) => {
-        if (typeof item === "object" && item !== null) {
+      if (typeof value[0] === "object" && value[0] !== null) {
+        value.forEach((item, index) => {
           Object.assign(acc, flattenObject(item, `${newKey}[${index}]`, sep));
-        } else {
-          acc[`${newKey}[${index}]`] = item;
-        }
-      });
+        });
+      } else {
+        acc[newKey] = escapeCsvValue(
+          value
+            .map((item) =>
+              typeof item === "string"
+                ? escapeCsvValue(String(item))
+                : JSON.stringify(item)
+            )
+            .join(",")
+        );
+      }
     } else if (value && typeof value === "object" && !Array.isArray(value)) {
       Object.assign(acc, flattenObject(value, newKey, sep));
     } else {
@@ -107,21 +129,21 @@ const readFile = (file: File) => {
     if (fileExtension === "csv") {
       const data = new Uint8Array(event.target!.result as ArrayBuffer);
       const workbook = XLSX.read(data, { type: "array" });
-
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const csvText = XLSX.utils.sheet_to_csv(worksheet);
-
       displayCSVTable(csvText, "tableHeader", "tableBody");
       createFormFromHeaders("tableHeader", "formContainer");
     } else if (fileExtension === "json") {
       const jsonData = JSON.parse(event.target!.result as string);
-      console.log("from readFile", jsonData, Array.isArray(jsonData));
       const csvText = jsonToCSV(jsonData);
-      console.log("from csv", csvText);
       displayCSVTable(csvText, "tableHeader", "tableBody");
       createFormFromHeaders("tableHeader", "formContainer");
-    } else if (fileExtension === "xls" || fileExtension === "xlsx") {
+    } else if (
+      fileExtension === "xls" ||
+      fileExtension === "xlsx" ||
+      fileExtension === "ods"
+    ) {
       const data = new Uint8Array(event.target!.result as ArrayBuffer);
       const workbook = XLSX.read(data, { type: "array" });
       const sheetName = workbook.SheetNames[0];
@@ -136,7 +158,8 @@ const readFile = (file: File) => {
   } else if (
     fileExtension === "csv" ||
     fileExtension === "xls" ||
-    fileExtension === "xlsx"
+    fileExtension === "xlsx" ||
+    fileExtension === "ods"
   ) {
     reader.readAsArrayBuffer(file);
   }

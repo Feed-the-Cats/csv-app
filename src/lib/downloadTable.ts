@@ -3,9 +3,11 @@ import * as XLSX from "xlsx";
 const getTableRowsHeaders = (): [string[][], string[]] => {
   const table = document.getElementById("csvTable")!;
 
-  const rows = [...table.querySelectorAll("tr")].map((row) =>
-    [...row.querySelectorAll("td")].map((cell) => cell.textContent || "")
-  );
+  const rows = [...table.querySelectorAll("tr")]
+    .filter((row) => row.querySelectorAll("td").length > 0)
+    .map((row) =>
+      [...row.querySelectorAll("td")].map((cell) => cell.textContent || "")
+    );
 
   const headers = [...table.querySelectorAll("th")].map(
     (th) => th.textContent || ""
@@ -38,7 +40,6 @@ const downloadTableAsCsv = () => {
   const csvContent = [headers, ...rows]
     .map((row) => (Array.isArray(row) ? row.join(",") : row))
     .join("\n");
-
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
 
   downloadLink(blob, "table_data.csv");
@@ -48,11 +49,10 @@ const downloadTableAsJson = () => {
   const [rows, headers] = getTableRowsHeaders();
 
   const data = rows.slice(1).map((row) => {
-    const obj: { [key: string]: string } = {}; // Typage explicite pour les clés et valeurs
+    const obj: { [key: string]: string } = {};
     row.forEach((cell, index) => {
       const header = headers[index];
       if (header) {
-        // Vérifier que le header n'est pas vide
         obj[header] = cell;
       }
     });

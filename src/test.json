@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "tags": ["user", "admin", "editor"],
+    "posts": [
+      {
+        "title": "First Post",
+        "content": "Lorem ipsum"
+      },
+      {
+        "title": "Second Post",
+        "content": "Dolor sit amet"
+      }
+    ]
+  }
+]

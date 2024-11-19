@@ -2,9 +2,9 @@ import { createFormFromHeaders, displayCSVTable } from "./uploadTable";
 
 const updateThemeIcon = (themeToggleButton: HTMLButtonElement) => {
   if (document.body.classList.contains("dark-theme")) {
-    themeToggleButton.textContent = "🌜"; // Icône de lune pour le thème sombre
+    themeToggleButton.textContent = "🌜";
   } else {
-    themeToggleButton.textContent = "🌞"; // Icône de soleil pour le thème clair
+    themeToggleButton.textContent = "🌞";
   }
 };
 
@@ -27,7 +27,6 @@ const generateSampleCSV = () => {
           return user[header as keyof User];
         });
       });
-      console.log(headers);
       const csvContent = [headers, ...rows]
         .map((row) => row.join(","))
         .join("\n");
@@ -37,4 +36,28 @@ const generateSampleCSV = () => {
     .catch((error) => console.error("Error fetching data:", error));
 };
 
-export { generateSampleCSV, updateThemeIcon };
+const splitCsvRespectingQuotes = (input: string): string[] => {
+  const regex = /"([^"]*)"|[^,]+/g;
+  const result: string[] = [];
+  let match;
+
+  while ((match = regex.exec(input)) !== null) {
+    if (match[1] !== undefined) {
+      result.push(match[1]);
+    } else {
+      result.push(match[0]);
+    }
+  }
+  return result;
+};
+
+const hasQuotedPortion = (input: string): boolean => {
+  return /"[^"]*"/.test(input);
+};
+
+export {
+  generateSampleCSV,
+  hasQuotedPortion,
+  splitCsvRespectingQuotes,
+  updateThemeIcon,
+};
