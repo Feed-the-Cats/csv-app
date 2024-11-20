@@ -3,7 +3,6 @@ import {
   downloadTableAsHtml,
   downloadTableAsJson,
   downloadTableAsXls,
-  downloadTableAsXlsx,
 } from "./lib/downloadTable";
 import { readFile } from "./lib/uploadTable";
 import { generateSampleCSV, updateThemeIcon } from "./lib/utils";
@@ -59,8 +58,6 @@ document
         downloadTableAsHtml();
         break;
       case "xlsx":
-        downloadTableAsXlsx();
-        break;
       case "xls":
       case "ods":
         downloadTableAsXls(format);

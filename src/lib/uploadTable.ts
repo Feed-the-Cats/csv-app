@@ -68,12 +68,12 @@ const createFormFromHeaders = (
   });
 };
 
-function escapeCsvValue(value: string): string {
+const escapeCsvValue = (value: string): string => {
   if (value.includes(",") || value.includes('"')) {
     return `"${value.replace(/"/g, '""')}"`;
   }
   return value;
-}
+};
 
 const flattenObject = (
   obj: any,
@@ -126,20 +126,13 @@ const readFile = (file: File) => {
   const fileExtension = file.name.split(".").pop()?.toLowerCase();
 
   reader.onload = (event) => {
-    if (fileExtension === "csv") {
-      const data = new Uint8Array(event.target!.result as ArrayBuffer);
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const csvText = XLSX.utils.sheet_to_csv(worksheet);
-      displayCSVTable(csvText, "tableHeader", "tableBody");
-      createFormFromHeaders("tableHeader", "formContainer");
-    } else if (fileExtension === "json") {
+    if (fileExtension === "json") {
       const jsonData = JSON.parse(event.target!.result as string);
       const csvText = jsonToCSV(jsonData);
       displayCSVTable(csvText, "tableHeader", "tableBody");
       createFormFromHeaders("tableHeader", "formContainer");
     } else if (
+      fileExtension === "csv" ||
       fileExtension === "xls" ||
       fileExtension === "xlsx" ||
       fileExtension === "ods"

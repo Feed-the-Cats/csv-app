@@ -75,26 +75,7 @@ const downloadTableAsHtml = () => {
   downloadLink(blob, "table_data.html");
 };
 
-const downloadTableAsXlsx = () => {
-  const [rows, headers] = getTableRowsHeaders();
-
-  const worksheet = XLSX.utils.aoa_to_sheet([headers, ...rows]);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-
-  const workbookOut = XLSX.write(workbook, {
-    bookType: "xlsx",
-    type: "binary",
-  });
-
-  const blob = new Blob([stringToArrayBuffer(workbookOut)], {
-    type: "application/octet-stream",
-  });
-
-  downloadLink(blob, "table_data.xlsx");
-};
-
-const downloadTableAsXls = (bookType: "xls" | "ods") => {
+const downloadTableAsXls = (bookType: "xlsx" | "xls" | "ods") => {
   const [rows, headers] = getTableRowsHeaders();
 
   const worksheet = XLSX.utils.aoa_to_sheet([headers, ...rows]);
@@ -117,5 +98,4 @@ export {
   downloadTableAsHtml,
   downloadTableAsJson,
   downloadTableAsXls,
-  downloadTableAsXlsx,
 };
