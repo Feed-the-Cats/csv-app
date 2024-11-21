@@ -176,3 +176,12 @@ tr:has(td):hover {
   padding: 0 20px; /* ajustez le padding pour une meilleure apparence */
   border-radius: 0 10px 10px 0;
 }
+
+.display-error {
+  display: none;
+}
+
+.error {
+  margin-top: 20px;
+  color: #ff0000;
+}

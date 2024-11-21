@@ -1,5 +1,16 @@
 import * as XLSX from "xlsx";
 
+/**
+ * Extracts the data rows and header row from the HTML table with the ID "csvTable".
+ *
+ * @returns A tuple containing two elements:
+ *   - An array of arrays of strings, where each inner array represents a row of data from the table.
+ *   - An array of strings representing the header row of the table.
+ *
+ * The function assumes that the HTML table has a structure where headers are in <th> elements
+ * and data cells are in <td> elements. It filters out rows without data cells.
+ */
+
 const getTableRowsHeaders = (): [string[][], string[]] => {
   const table = document.getElementById("csvTable")!;
 
@@ -16,6 +27,15 @@ const getTableRowsHeaders = (): [string[][], string[]] => {
   return [rows, headers];
 };
 
+/**
+ * Creates a blob URL, appends it to a newly created link element,
+ * simulates a click on the link, and then revokes the blob URL.
+ * Used to download a blob as a file.
+ *
+ * @param {Blob} blob the blob to download
+ * @param {string} fileName the name of the file to download as
+ */
+
 const downloadLink = (blob: Blob, fileName: string): void => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -24,6 +44,16 @@ const downloadLink = (blob: Blob, fileName: string): void => {
   link.click();
   URL.revokeObjectURL(url);
 };
+
+/**
+ * Converts a string into an ArrayBuffer.
+ *
+ * This function creates an ArrayBuffer with the same length as the input string
+ * and fills it with the char codes of the string, masked to 8 bits.
+ *
+ * @param s - The string to be converted into an ArrayBuffer.
+ * @returns An ArrayBuffer where each byte is the char code of the corresponding character in the string.
+ */
 
 const stringToArrayBuffer = (s: string) => {
   const buf = new ArrayBuffer(s.length);
