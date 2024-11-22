@@ -1,10 +1,12 @@
+import moon from "../assets/moon.svg?raw";
+import sun from "../assets/sun.svg?raw";
 import { createFormFromHeaders, displayCSVTable } from "./uploadTable";
 
 const updateThemeIcon = (themeToggleButton: HTMLButtonElement) => {
   if (document.body.classList.contains("dark-theme")) {
-    themeToggleButton.textContent = "🌜";
+    themeToggleButton.innerHTML = moon; // "🌜";
   } else {
-    themeToggleButton.textContent = "🌞";
+    themeToggleButton.innerHTML = sun; // "🌞";
   }
 };
 

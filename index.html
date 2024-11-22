@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="src/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload and Display Sheets</title>
-  </head>
-  <body>
-    <header>
-      <h1>Upload and Display Sheets</h1>
-      <button id="themeToggleButton" aria-label="Toggle Theme">🌞</button>
-    </header>
-    <main>
-      <div id="dropArea">
-        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.ods" />
-        <label for="csvFileInput"
-          >Drag & Drop CSV File Here or Click to Upload</label
-        >
-      </div>
-      <button id="generateCsvButton">Generate Example CSV</button>
-      <br /><br />
-      <div id="errorMessage" class="display-error error"></div>
-      <table id="csvTable">
-        <thead>
-          <tr id="tableHeader"></tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-      <div class="form-container" id="formContainer"></div>
-      <!-- Container for dynamic form -->
-      <div id="downloadContainer">
-        <select id="downloadFormat">
-          <option value="csv">CSV</option>
-          <option value="json">JSON</option>
-          <option value="html">HTML</option>
-          <option value="xlsx">XLSX</option>
-          <option value="xls">XLS (Excel 97)</option>
-          <option value="ods">ODS (OpenOffice)</option>
-        </select>
-        <button id="downloadButton">Download</button>
-      </div>
-    </main>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload and Display Sheets</title>
+</head>
+
+<body>
+  <header>
+    <div class="toggle-container">
+      <button id="themeToggleButton" class="theme-btn" aria-label="Toggle Theme">
+        
+      </button>
+    </div>
+    <h1>Upload and Display Sheets</h1>
+    </div>
+  </header>
+  <main>
+    <div id="dropArea">
+      <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.ods" />
+      <label for="csvFileInput">Drag & Drop CSV File Here or Click to Upload</label>
+    </div>
+    <button id="generateCsvButton">Generate Example CSV</button>
+    <br /><br />
+    <div id="errorMessage" class="display-error error"></div>
+    <table id="csvTable">
+      <thead>
+        <tr id="tableHeader"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="form-container" id="formContainer"></div>
+    <!-- Container for dynamic form -->
+    <div id="downloadContainer">
+      <select id="downloadFormat">
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+        <option value="html">HTML</option>
+        <option value="xlsx">XLSX</option>
+        <option value="xls">XLS (Excel 97)</option>
+        <option value="ods">ODS (OpenOffice)</option>
+      </select>
+      <button id="downloadButton">Download</button>
+    </div>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
