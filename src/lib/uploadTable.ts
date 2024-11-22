@@ -70,8 +70,6 @@ const addRowToTable = (inputs: HTMLInputElement[], tableId: string) => {
     cell.textContent = input.value; // Récupérer la valeur saisie
     input.value = ""; // Réinitialiser le champ de saisie après l'ajout
   });
-
-  console.log("New row added to table");
 };
 
 /**

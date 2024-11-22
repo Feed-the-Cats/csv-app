@@ -4,9 +4,9 @@ import { createFormFromHeaders, displayCSVTable } from "./uploadTable";
 
 const updateThemeIcon = (themeToggleButton: HTMLButtonElement) => {
   if (document.body.classList.contains("dark-theme")) {
-    themeToggleButton.innerHTML = moon; // "🌜";
+    themeToggleButton.innerHTML = moon;
   } else {
-    themeToggleButton.innerHTML = sun; // "🌞";
+    themeToggleButton.innerHTML = sun;
   }
 };
 
